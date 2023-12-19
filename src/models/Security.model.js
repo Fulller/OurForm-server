@@ -16,8 +16,6 @@ const SecuritySchema = new Schema({
   },
   time: {
     type: Schema.Types.Number,
-    required: true,
-    default: 1,
   },
   duration: {
     type: Schema.Types.Number,

@@ -3,8 +3,9 @@ import { JWTService } from "../services/index.js";
 export async function ensureAuthenticated(req, res, next) {
   try {
     const accessToken = req.headers["accesstoken"]?.toString() || "";
-    await JWTService.access.verify(accessToken);
-    return next();
+    let profile = await JWTService.access.verify(accessToken);
+    req.profile = profile;
+    next();
   } catch {
     res.fly({ status: 403 });
   }

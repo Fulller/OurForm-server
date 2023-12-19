@@ -5,18 +5,15 @@ const DropdownMenuSchema = new Schema({
     {
       type: Schema.Types.ObjectId,
       ref: "Option",
-      required: true,
     },
   ],
   answer_data: {
     type: Schema.Types.ObjectId,
     ref: "Option",
-    required: true,
   },
   response_data: {
     type: Schema.Types.ObjectId,
     ref: "Option",
-    required: true,
   },
 });
 

@@ -20,13 +20,15 @@ const QuestionSchema = new Schema({
   },
   required: {
     type: Schema.Types.Boolean,
+    default: false,
   },
   score: {
     type: Schema.Types.Number,
+    default: 0,
   },
   data: {
     type: Schema.Types.ObjectId,
-    res: "Data",
+    ref: "Data",
     require: true,
   },
 });
