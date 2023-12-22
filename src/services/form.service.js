@@ -73,11 +73,17 @@ const FormService = {
     }
     return form;
   },
-  addQuestion: async function ({ id, owner, type }) {
+  addQuestion: async function ({ id, owner, type, index }) {
     const form = await this.find({ id, owner });
     let question = await QuestionService.createDefault({ type });
     try {
-      form.questions.push(question._id);
+      index++;
+      let newQuestionsArray = _.clone(form.questions);
+      form.questions = [
+        ...newQuestionsArray.slice(0, index),
+        question._id,
+        ...newQuestionsArray.slice(index),
+      ];
       await form.save();
       question = await Question.findById(question._id)
         .populate({
@@ -92,8 +98,7 @@ const FormService = {
         .exec();
       return question;
     } catch (err) {
-      // throw createHttpError(400, "Add question failed");
-      throw createHttpError(err);
+      throw createHttpError(400, "Add question failed");
     }
   },
 };

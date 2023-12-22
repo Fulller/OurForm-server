@@ -34,7 +34,13 @@ const FormController = {
       const id = _.get(req, "params.id", null);
       const owner = _.get(req, "profile.id", null);
       const type = _.get(req, "params.type", null);
-      const question = await FormService.addQuestion({ id, owner, type });
+      const index = _.get(req, "body.index");
+      const question = await FormService.addQuestion({
+        id,
+        owner,
+        type,
+        index,
+      });
       res.fly({
         status: 200,
         message: "Add question successfuly",

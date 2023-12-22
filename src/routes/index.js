@@ -6,6 +6,7 @@ import handleErrorMDW from "../middlewares/handleError.mdw.js";
 import AuthRouter from "./auth.router.js";
 import FormRouter from "./form.router.js";
 import SettingRouter from "./setting.router.js";
+import QuestionRouter from "./question.router.js";
 
 const route = Router();
 route.use(responseMDW);
@@ -14,9 +15,11 @@ route.use("/ping", (req, res) => {
 });
 
 route.use("/auth", AuthRouter);
-route.use("/api", route);
-route.use("/form", ensureAuthenticated, FormRouter);
-route.use("/setting", ensureAuthenticated, SettingRouter);
+route.use("/api", ensureAuthenticated, route);
+route.use("/form", FormRouter);
+route.use("/setting", SettingRouter);
+route.use("/question", QuestionRouter);
+
 route.use(notFoundMDW);
 route.use(handleErrorMDW);
 

@@ -12,5 +12,14 @@ const QuestionService = {
       throw createHttpError(400, "Create question failed");
     }
   },
+  update: async function ({ _id, key, value }) {
+    try {
+      const question = await Question.findById(_id);
+      question[key] = value;
+      await question.save();
+    } catch (err) {
+      throw createHttpError(400, "Update question failed");
+    }
+  },
 };
 export default QuestionService;

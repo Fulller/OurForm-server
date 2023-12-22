@@ -31,6 +31,10 @@ const QuestionSchema = new Schema({
     ref: "Data",
     require: true,
   },
+  has_answer: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("Question", QuestionSchema);
