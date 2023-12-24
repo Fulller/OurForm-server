@@ -9,10 +9,10 @@ import {
 import _ from "lodash";
 
 const FormService = {
-  find: async function ({ id, owner }) {
+  find: async function ({ _id, owner }) {
     let form = null;
     try {
-      form = await Form.findOne({ _id: id, owner });
+      form = await Form.findOne({ _id, owner });
     } catch (err) {
       throw createHttpError(404, `Not found form with id ${id}`);
     }
@@ -50,7 +50,7 @@ const FormService = {
             populate: _.map(questionTypeArray, (questionType) => {
               const populate = [];
               questionType.hasQuestionData && populate.push("question_data");
-              questionType.hasAnswerData && populate.push("answer_data");
+              // questionType.hasAnswerData && populate.push("answer_data");
               return {
                 path: questionType.type,
                 populate,
@@ -73,8 +73,8 @@ const FormService = {
     }
     return form;
   },
-  addQuestion: async function ({ id, owner, type, index }) {
-    const form = await this.find({ id, owner });
+  addQuestion: async function ({ _id, owner, type, index }) {
+    const form = await this.find({ _id, owner });
     let question = await QuestionService.createDefault({ type });
     try {
       index++;
@@ -99,6 +99,15 @@ const FormService = {
       return question;
     } catch (err) {
       throw createHttpError(400, "Add question failed");
+    }
+  },
+  updateIndexQuestions: async function ({ _id, owner, questions }) {
+    const form = await this.find({ _id, owner });
+    try {
+      form.questions = questions;
+      await form.save();
+    } catch (err) {
+      createHttpError(err);
     }
   },
 };

@@ -31,12 +31,12 @@ const FormController = {
   },
   addQuestion: async function (req, res, next) {
     try {
-      const id = _.get(req, "params.id", null);
+      const _id = _.get(req, "params.id", null);
       const owner = _.get(req, "profile.id", null);
       const type = _.get(req, "params.type", null);
       const index = _.get(req, "body.index");
       const question = await FormService.addQuestion({
-        id,
+        _id,
         owner,
         type,
         index,
@@ -45,6 +45,24 @@ const FormController = {
         status: 200,
         message: "Add question successfuly",
         metadata: { question },
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
+  updateIndexQuestions: async function (req, res, next) {
+    try {
+      const _id = _.get(req, "params.id", null);
+      const owner = _.get(req, "profile.id", null);
+      const questions = _.get(req, "body.questions", []);
+      await FormService.updateIndexQuestions({
+        _id,
+        owner,
+        questions,
+      });
+      res.fly({
+        status: 200,
+        message: "Update index questions successfuly",
       });
     } catch (err) {
       next(err);
