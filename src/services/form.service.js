@@ -98,7 +98,19 @@ const FormService = {
         .exec();
       return question;
     } catch (err) {
-      throw createHttpError(400, "Add question failed");
+      throw createHttpError(400, "FormService :: Add question failed");
+    }
+  },
+  deleteQuestion: async function ({ _id, owner, questionId }) {
+    await QuestionService.delete({ _id: questionId });
+    const form = await this.find({ _id, owner });
+    try {
+      form.questions = form.questions.filter(
+        (_questionId) => _questionId != questionId
+      );
+      await form.save();
+    } catch (err) {
+      throw createHttpError(400, "FormService :: delete question failed");
     }
   },
   updateIndexQuestions: async function ({ _id, owner, questions }) {
@@ -107,7 +119,7 @@ const FormService = {
       form.questions = questions;
       await form.save();
     } catch (err) {
-      createHttpError(err);
+      throw createHttpError(400, "FormService :: update index question failed");
     }
   },
 };

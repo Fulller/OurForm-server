@@ -21,5 +21,12 @@ const QuestionService = {
       throw createHttpError(400, "Update question failed");
     }
   },
+  delete: async function ({ _id }) {
+    try {
+      await Question.deleteOne({ _id });
+    } catch (err) {
+      throw createHttpError(400, "Delete question failed");
+    }
+  },
 };
 export default QuestionService;

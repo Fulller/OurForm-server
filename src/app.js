@@ -22,11 +22,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
 app.use(compression());
+app.set("trust proxy", 1);
 app.use(
   session({
     secret: config.app.sessionSecret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
   })
 );
 app.use(passport.initialize());

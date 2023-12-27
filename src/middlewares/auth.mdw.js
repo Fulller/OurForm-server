@@ -10,14 +10,3 @@ export async function ensureAuthenticated(req, res, next) {
     res.fly({ status: 403 });
   }
 }
-export async function profileAuthenticated(req, res, next) {
-  let profile = null;
-  try {
-    const accessToken = req.headers["accesstoken"]?.toString() || "";
-    profile = await JWTService.access.verify(accessToken);
-    req.profile = profile;
-  } catch {
-    req.profile = null;
-  }
-  next();
-}

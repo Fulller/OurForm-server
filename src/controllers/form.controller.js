@@ -50,6 +50,24 @@ const FormController = {
       next(err);
     }
   },
+  deleteQuestion: async function (req, res, next) {
+    try {
+      const _id = _.get(req, "params.id", null);
+      const owner = _.get(req, "profile.id", null);
+      const questionId = _.get(req, "params.question_id", null);
+      await FormService.deleteQuestion({
+        _id,
+        owner,
+        questionId,
+      });
+      res.fly({
+        status: 200,
+        message: "Delete question successfuly",
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
   updateIndexQuestions: async function (req, res, next) {
     try {
       const _id = _.get(req, "params.id", null);

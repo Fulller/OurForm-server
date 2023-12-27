@@ -28,7 +28,7 @@ export default {
       await JWTService.refresh.delete(userId);
       res.fly({ status: 200, message: "Logout successful" });
     } catch (err) {
-      res.fly(err);
+      next(err);
     }
   },
   profile: async (req, res) => {
@@ -40,7 +40,7 @@ export default {
       },
     });
   },
-  refreshToken: async (req, res) => {
+  refreshToken: async (req, res, next) => {
     try {
       const refreshToken = _.get(req.headers, "refreshtoken", "");
       if (!refreshToken) {
@@ -49,7 +49,7 @@ export default {
       const accessToken = await JWTService.refreshToken(refreshToken);
       res.fly({ status: 200, metadata: { accessToken } });
     } catch (err) {
-      res.fly({ status: 400 });
+      next(err);
     }
   },
 };
