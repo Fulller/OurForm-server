@@ -10,6 +10,10 @@ const SettingSchema = new Schema({
   image: {
     type: Schema.Types.String,
   },
+  has_index: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("Setting", SettingSchema);

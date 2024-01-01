@@ -1,5 +1,6 @@
 import config from "../configs/index.js";
 import _ from "lodash";
+import createHttpError from "http-errors";
 import { JWTService } from "../services/index.js";
 import { pickUserProfile } from "../utils/index.js";
 
@@ -44,7 +45,7 @@ export default {
     try {
       const refreshToken = _.get(req.headers, "refreshtoken", "");
       if (!refreshToken) {
-        return res.fly({ status: 403 });
+        throw createHttpError(403);
       }
       const accessToken = await JWTService.refreshToken(refreshToken);
       res.fly({ status: 200, metadata: { accessToken } });

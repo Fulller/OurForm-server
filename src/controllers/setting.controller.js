@@ -1,4 +1,4 @@
-import SettingService from "../services/settting.service.js";
+import { SettingService } from "../services/index.js";
 import _ from "lodash";
 
 const SettingController = {

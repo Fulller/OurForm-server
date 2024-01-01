@@ -5,10 +5,13 @@ import _ from "lodash";
 
 const MultipleChoiceService = {
   createWithQuestionData: async function () {
-    const option = await OptionService.createDefault();
+    const [option1, option2] = await Promise.all([
+      OptionService.createDefault(),
+      OptionService.createDefault(),
+    ]);
     try {
       const multipleChoice = await MultipleChoice.create({
-        question_data: [option._id],
+        question_data: [option1._id, option2._id],
         answer_data: null,
       });
       return multipleChoice;

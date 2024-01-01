@@ -93,11 +93,11 @@ const JWTService = {
         pickUserProfile(validRefreshToken)
       );
       if (!accessToken) {
-        throw createHttpError(400, "Can not create access token");
+        throw createHttpError(403, "Can not create access token");
       }
       return accessToken;
     } catch (err) {
-      throw new Error(err);
+      throw createHttpError(err);
     }
   },
 };

@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import lodash from "lodash";
 dotenv.config();
 
-function getEnvValue(name, defaultValue) {
+function getEnvValue(name, defaultValue = "") {
   const env = process.env;
   return lodash.get(env, name) || defaultValue;
 }
@@ -35,6 +35,11 @@ const DEV_CONFIG = {
     ACCESS_EX: lodash.toNumber(getEnvValue("DEV_JWT_ACCESS_EX", "3600")),
     REFRESH_EX: lodash.toNumber(getEnvValue("DEV_JWT_REFRESH_EX", "7200")),
   },
+  cloudinary: {
+    cloud_name: getEnvValue("DEV_CLOUDINARY_CLOUD_NAME"),
+    api_key: getEnvValue("DEV_CLOUDINARY_API_KEY"),
+    api_secret: getEnvValue("DEV_CLOUDINARY_APU_SECRET"),
+  },
 };
 const PRO_CONFIG = {
   app: {
@@ -64,6 +69,11 @@ const PRO_CONFIG = {
     REFRESH_SECRECT_KEY: getEnvValue("PRO_JWT_REFRESH_SECRECT_KEY", "REFRESH"),
     ACCESS_EX: lodash.toNumber(getEnvValue("PRO_JWT_ACCESS_EX", 3600)),
     REFRESH_EX: lodash.toNumber(getEnvValue("PRO_JWT_REFRESH_EX", 7200)),
+  },
+  cloudinary: {
+    cloud_name: getEnvValue("PRO_CLOUDINARY_CLOUD_NAME"),
+    api_key: getEnvValue("PRO_CLOUDINARY_API_KEY"),
+    api_secret: getEnvValue("PRO_CLOUDINARY_APU_SECRET"),
   },
 };
 const NODE_ENV = getEnvValue("NODE_ENV", "dev");

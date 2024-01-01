@@ -11,6 +11,7 @@ import MultipleChoiceService from "./multiple_choice.service.js";
 import ShortAnswerService from "./short_answer.service.js";
 import DropdownMenuService from "./dropdown_menu.service.js";
 import OptionService from "./option.service.js";
+import UploadService from "./upload.service.js";
 
 export {
   JWTService,
@@ -26,4 +27,5 @@ export {
   ParagraphService,
   ShortAnswerService,
   DropdownMenuService,
+  UploadService,
 };
