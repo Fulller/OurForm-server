@@ -3,6 +3,9 @@ import { v2 as cloudinary } from "cloudinary";
 import { extractPublicId } from "cloudinary-build-url";
 import _ from "lodash";
 import createHttpError from "http-errors";
+import config from "../configs/index.js";
+
+const folder = config.cloudinary.folder;
 
 const UploadService = {
   uploadImage: async function (imageBuffer) {
@@ -13,7 +16,7 @@ const UploadService = {
       return new Promise((resolve, reject) => {
         cloudinary.uploader
           .upload_stream(
-            { resource_type: "image", folder: "our_form" },
+            { resource_type: "image", folder: folder },
             (error, result) => {
               if (error) {
                 reject(createHttpError(error));
