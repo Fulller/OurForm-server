@@ -12,6 +12,10 @@ MultipleChoiceRouter.delete(
   MultipleChoiceController.deleteQuestionData
 );
 MultipleChoiceRouter.patch(
+  "/:id/question_data/orther",
+  MultipleChoiceController.ortherQuestionData
+);
+MultipleChoiceRouter.patch(
   "/:id/answer_data/update",
   MultipleChoiceController.updateAnswerData
 );

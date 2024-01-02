@@ -41,6 +41,19 @@ const MultipleChoiceController = {
       next(err);
     }
   },
+  ortherQuestionData: async function (req, res, next) {
+    try {
+      const _id = _.get(req, "params.id");
+      const question_data = _.get(req, "body.question_data");
+      await MultipleChoiceService.ortherQuestionData({ _id, question_data });
+      res.fly({
+        status: 200,
+        message: "MultipleChoiceController :: Other question data successfuly",
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 export default MultipleChoiceController;

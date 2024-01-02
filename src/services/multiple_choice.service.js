@@ -48,6 +48,18 @@ const MultipleChoiceService = {
       );
     }
   },
+  ortherQuestionData: async function ({ _id, question_data }) {
+    try {
+      const multipleChoice = await MultipleChoice.findById(_id);
+      multipleChoice.question_data = question_data;
+      await multipleChoice.save();
+    } catch (err) {
+      throw createHttpError(
+        400,
+        "Multiple choice :: orther question data failed"
+      );
+    }
+  },
   updateAnswerData: async function ({ _id, answer_data }) {
     try {
       await MultipleChoice.findByIdAndUpdate(_id, {
