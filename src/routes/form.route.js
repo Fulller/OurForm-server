@@ -11,5 +11,9 @@ FormRouter.delete(
   FormController.deleteQuestion
 );
 FormRouter.patch("/question/update/:id", FormController.updateIndexQuestions);
+FormRouter.patch(
+  "/question/other_by_index/:id",
+  FormController.updateOtherQuestionsByIndex
+);
 
 export default FormRouter;

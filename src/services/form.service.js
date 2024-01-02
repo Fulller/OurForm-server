@@ -122,5 +122,42 @@ const FormService = {
       throw createHttpError(400, "FormService :: update index question failed");
     }
   },
+  updateOtherQuestionsByIndex: async function ({ _id, owner, index, action }) {
+    const form = await this.find({ _id, owner });
+    let actionNum = 0;
+    try {
+      switch (action) {
+        case "UP": {
+          if (index == 0) {
+            throw createHttpError(
+              400,
+              "FormService :: Update other question by index falied because invalid index"
+            );
+          }
+          actionNum--;
+          break;
+        }
+        case "DOWN": {
+          if (index == form.questions.length - 1) {
+            throw createHttpError(
+              400,
+              "FormService :: Update other question by index falied because invalid index"
+            );
+          }
+          actionNum++;
+          break;
+        }
+        default:
+          return;
+      }
+      const questions = Array.from(form.questions);
+      const movedItem = questions.splice(index, 1)[0];
+      questions.splice(index + actionNum, 0, movedItem);
+      form.questions = questions;
+      await form.save();
+    } catch (err) {
+      throw createHttpError(err);
+    }
+  },
 };
 export default FormService;

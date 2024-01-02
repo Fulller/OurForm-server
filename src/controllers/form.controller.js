@@ -86,6 +86,25 @@ const FormController = {
       next(err);
     }
   },
+  updateOtherQuestionsByIndex: async function (req, res, next) {
+    try {
+      const _id = _.get(req, "params.id", null);
+      const owner = _.get(req, "profile.id", null);
+      const { index, action } = _.get(req, "body");
+      await FormService.updateOtherQuestionsByIndex({
+        _id,
+        owner,
+        index,
+        action,
+      });
+      res.fly({
+        status: 200,
+        message: "Update orther question by index successfuly",
+      });
+    } catch (err) {
+      next(err);
+    }
+  },
 };
 
 export default FormController;
