@@ -50,7 +50,6 @@ const FormService = {
             populate: _.map(questionTypeArray, (questionType) => {
               const populate = [];
               questionType.hasQuestionData && populate.push("question_data");
-              // questionType.hasAnswerData && populate.push("answer_data");
               return {
                 path: questionType.type,
                 populate,
@@ -85,17 +84,7 @@ const FormService = {
         ...newQuestionsArray.slice(index),
       ];
       await form.save();
-      question = await Question.findById(question._id)
-        .populate({
-          path: "data",
-          populate: _.map(questionTypeHasQuestionData, (questionType) => {
-            return {
-              path: questionType.type,
-              populate: { path: "question_data" },
-            };
-          }),
-        })
-        .exec();
+      question = await QuestionService.findByIdAndPopulate(question._id);
       return question;
     } catch (err) {
       throw createHttpError(400, "FormService :: Add question failed");
