@@ -12,6 +12,7 @@ import ShortAnswerService from "./short_answer.service.js";
 import DropdownMenuService from "./dropdown_menu.service.js";
 import OptionService from "./option.service.js";
 import UploadService from "./upload.service.js";
+import StoreService from "./store.service.js";
 
 export {
   JWTService,
@@ -28,4 +29,5 @@ export {
   ShortAnswerService,
   DropdownMenuService,
   UploadService,
+  StoreService,
 };

@@ -13,6 +13,7 @@ import Setting from "./Setting.model.js";
 import ShortAnswer from "./ShortAnswer.model.js";
 import Token from "./Token.model.js";
 import User from "./User.model.js";
+import Store from "./Store.model.js";
 
 export {
   Checkbox,
@@ -30,4 +31,5 @@ export {
   ShortAnswer,
   Token,
   User,
+  Store,
 };

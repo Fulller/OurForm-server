@@ -5,6 +5,7 @@ import { QuestionService } from "./index.js";
 import {
   questionTypeHasQuestionData,
   questionTypeArray,
+  questionType,
 } from "../const/questionType.const.js";
 import _ from "lodash";
 
@@ -22,15 +23,19 @@ const FormService = {
     return form;
   },
   create: async function ({ owner }) {
-    const [setting, security] = await Promise.all([
+    const [setting, security, question] = await Promise.all([
       SettingService.createDefault(),
       SecurityService.createDefault(),
+      QuestionService.createDefault({
+        type: questionType.multiple_choice.type,
+      }),
     ]);
     try {
       const form = await Form.create({
         owner,
         setting: setting._id,
         security: security._id,
+        questions: [question._id],
       });
       return form;
     } catch (err) {

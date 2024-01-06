@@ -5,6 +5,7 @@ import QuestionController from "./question.controller.js";
 import MultipleChoiceController from "./multiple_choice.controller.js";
 import OptionController from "./option.controller.js";
 import UploadController from "./upload.controller.js";
+import StoreController from "./store.controller.js";
 
 export {
   AuthController,
@@ -14,4 +15,5 @@ export {
   MultipleChoiceController,
   OptionController,
   UploadController,
+  StoreController,
 };

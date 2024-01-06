@@ -1,7 +1,7 @@
 import config from "../configs/index.js";
 import _ from "lodash";
 import createHttpError from "http-errors";
-import { JWTService } from "../services/index.js";
+import { JWTService, StoreService } from "../services/index.js";
 import { pickUserProfile } from "../utils/index.js";
 
 const clientUrl = config.auth.clientUrl;
@@ -19,6 +19,7 @@ export default {
     };
     const accessToken = await JWTService.access.sign(user);
     const refreshToken = await JWTService.refresh.sign(user, id);
+    await StoreService.create(id);
     res.redirect(
       `${clientUrl}/auth?accesstoken=${accessToken}&refreshtoken=${refreshToken}`
     );

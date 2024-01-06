@@ -10,12 +10,10 @@ import QuestionRouter from "./question.route.js";
 import MultipleChoiceRouter from "./multiple_choice.route.js";
 import OptionRouter from "./option.route.js";
 import UploadRouter from "./upload.route.js";
+import StoreRouter from "./store.route.js";
 
 const route = Router();
 route.use(responseMDW);
-route.use("/ping", (req, res) => {
-  res.fly({ status: 200, message: "Pong" });
-});
 
 route.use("/auth", AuthRouter);
 route.use("/api", ensureAuthenticated, route);
@@ -25,7 +23,11 @@ route.use("/question", QuestionRouter);
 route.use("/multiple_choice", MultipleChoiceRouter);
 route.use("/option", OptionRouter);
 route.use("/upload", UploadRouter);
+route.use("/store", StoreRouter);
 
+route.use("/ping", (req, res) => {
+  res.fly({ status: 200, message: "Pong" });
+});
 route.use(notFoundMDW);
 route.use(handleErrorMDW);
 
