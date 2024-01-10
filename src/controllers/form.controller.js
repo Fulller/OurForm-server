@@ -1,4 +1,4 @@
-import { FormService } from "../services/index.js";
+import { FormService, StoreService } from "../services/index.js";
 import _ from "lodash";
 
 const FormController = {
@@ -20,6 +20,7 @@ const FormController = {
       const id = _.get(req, "params.id", null);
       const owner = _.get(req, "profile.id", null);
       const form = await FormService.get({ id, owner });
+      await StoreService.addRecently(owner, form._id);
       res.fly({
         status: 200,
         message: "Get form successfuly",

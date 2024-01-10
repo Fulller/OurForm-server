@@ -36,5 +36,18 @@ const StoreService = {
       throw createHttpError(400, "Get store failed!");
     }
   },
+  addRecently: async function (owner, formId) {
+    try {
+      const store = await Store.findOne({ owner });
+      store.recently = _.chain(store.recently)
+        .without(formId)
+        .concat(formId)
+        .uniq()
+        .value();
+      await store.save();
+    } catch (err) {
+      throw createHttpError(400, "Add recenty form failed!");
+    }
+  },
 };
 export default StoreService;
