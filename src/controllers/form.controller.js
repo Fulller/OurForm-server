@@ -19,8 +19,10 @@ const FormController = {
     try {
       const id = _.get(req, "params.id", null);
       const owner = _.get(req, "profile.id", null);
-      const form = await FormService.get({ id, owner });
-      await StoreService.addRecently(owner, form._id);
+      const [form] = await Promise.all([
+        FormService.get({ id, owner }),
+        StoreService.addRecently(owner, id),
+      ]);
       res.fly({
         status: 200,
         message: "Get form successfuly",

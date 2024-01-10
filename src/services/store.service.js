@@ -38,8 +38,10 @@ const StoreService = {
   },
   addRecently: async function (owner, formId) {
     try {
+      formId = formId.toString();
       const store = await Store.findOne({ owner });
       store.recently = _.chain(store.recently)
+        .map((form) => form.toString())
         .without(formId)
         .concat(formId)
         .uniq()
